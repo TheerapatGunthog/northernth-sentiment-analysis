@@ -1,3 +1,5 @@
 data/interim/*.csv
 data/interim/*/
 data/raw/*/
+data/processed/*/
+data/processed/*.csv
