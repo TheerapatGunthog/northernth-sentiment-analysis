@@ -1,0 +1,147 @@
+============================================================
+COMPREHENSIVE DATA ANALYSIS REPORT
+============================================================
+
+1. BASIC DATASET INFORMATION
+----------------------------------------
+Total number of reviews: 166,462
+Number of columns: 2
+Dataset shape: (166462, 2)
+Memory usage: 77.97 MB
+
+Column names and types:
+  - rating_review: int64 (non-null: 166,462)
+  - cleaned_text: object (non-null: 166,462)
+
+
+2. MISSING DATA ANALYSIS
+----------------------------------------
+Empty DataFrame
+Columns: [Missing Count, Missing Percentage]
+Index: []
+✅ No missing values found in the dataset!
+
+
+3. DETAILED RATING ANALYSIS
+----------------------------------------
+Summary statistics of rating_review:
+count    166462.000000
+mean          4.223625
+std           0.986316
+min           1.000000
+25%           4.000000
+50%           4.000000
+75%           5.000000
+max           5.000000
+Name: rating_review, dtype: float64
+
+Rating distribution:
+rating_review
+1     5296
+2     5621
+3    17879
+4    55432
+5    82234
+Name: count, dtype: int64
+
+Rating distribution (percentages):
+  1 stars: 3.2%
+  2 stars: 3.4%
+  3 stars: 10.7%
+  4 stars: 33.3%
+  5 stars: 49.4%
+
+
+4. TEXT LENGTH ANALYSIS
+----------------------------------------
+Text length statistics (characters):
+count    166462.000000
+mean        433.412136
+std         484.138696
+min          11.000000
+25%         169.000000
+50%         279.000000
+75%         505.000000
+max       10846.000000
+Name: text_length, dtype: float64
+
+Word count statistics:
+count    166462.000000
+mean         78.717101
+std          88.112844
+min           1.000000
+25%          30.000000
+50%          51.000000
+75%          92.000000
+max        2096.000000
+Name: word_count, dtype: float64
+
+Average text length by rating:
+                mean  median    std
+rating_review
+1              611.9   435.0  577.2
+2              600.0   430.0  544.4
+3              470.7   324.0  463.5
+4              435.5   279.0  500.1
+5              401.0   257.0  460.6
+
+
+5. LANGUAGE DISTRIBUTION ANALYSIS
+----------------------------------------
+Language distribution from the dataset:
+  detected_language   count
+0                en  166463
+1                vi      19
+2                af      14
+3                id      13
+4                it      11
+5                nl      10
+6                fr       9
+7                so       6
+8                ca       5
+9           unknown       4
+
+
+6. SENTIMENT LABEL ANALYSIS
+----------------------------------------
+Sentiment distribution:
+  Positive: 137,666 (82.7%)
+  Neutral: 17,879 (10.7%)
+  Negative: 10,917 (6.6%)
+
+Class balance analysis:
+  Imbalance ratio: 12.61:1
+  ⚠️  WARNING: Significant class imbalance detected!
+  Consider using techniques like SMOTE, class weights, or stratified sampling
+
+
+7. TEMPORAL ANALYSIS
+----------------------------------------
+No date column found
+
+
+8. DATA QUALITY INDICATORS
+----------------------------------------
+  Duplicate rows: 223 (0.13%)
+  Invalid ratings: 0
+  Very short reviews (<10 chars): 0
+  Very long reviews (>2000 chars): 2,804
+
+
+9. RECOMMENDATIONS FOR MODEL TRAINING
+----------------------------------------
+• Address class imbalance using SMOTE, class weights, or stratified sampling
+• Consider text length normalization or filtering extreme lengths
+• Remove 223 duplicate entries
+• Consider sampling strategies for faster training
+• Low negative sentiment samples may affect model performance
+
+
+10. SAVING ENHANCED DATASET
+----------------------------------------
+Enhanced dataset saved to: /home/whilebell/Code/northernth-sentiment-analysis/data/processed/enhanced_reviews_with_labels.csv
+New columns added: sentiment_label, text_length, word_count
+
+============================================================
+ANALYSIS COMPLETE!
+============================================================

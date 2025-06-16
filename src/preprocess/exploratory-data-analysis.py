@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore")
 plt.style.use("default")
 sns.set_palette("husl")
 
-PROJECT_PATH = Path("/home/whilebell/Code/Project/Northern-Thailand-Review-Analysis")
+PROJECT_PATH = Path("/home/whilebell/Code/northernth-sentiment-analysis/")
 
 # Load the datasets
 df = pd.read_csv(PROJECT_PATH / "data/interim/cleaned/cleaned_reviews_data.csv")

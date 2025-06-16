@@ -1,4 +1,4 @@
-name: NorthernTH-Sentiment-Analysis
+name: northernth-sentiment-analysis
 channels:
   - defaults
   - https://repo.anaconda.com/pkgs/main
