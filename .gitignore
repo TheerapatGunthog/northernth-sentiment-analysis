@@ -3,3 +3,4 @@ data/interim/*/
 data/raw/*/
 data/processed/*/
 data/processed/*.csv
+data/processed/*.png
