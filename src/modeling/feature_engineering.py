@@ -1,10 +1,8 @@
 import pandas as pd
-import numpy as np
 from pathlib import Path
-import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder
 import pickle
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import AutoTokenizer
 from datasets import Dataset  # New import for Hugging Face Dataset objects
 
 # Configuration
