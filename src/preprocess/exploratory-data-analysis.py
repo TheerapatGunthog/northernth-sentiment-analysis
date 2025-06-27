@@ -132,12 +132,18 @@ print("-" * 40)
 def create_sentiment_labels(rating):
     if pd.isna(rating):
         return "unknown"
-    elif rating <= 2:
-        return "negative"
+    elif rating == 5:
+        return "Very Positive"
+    elif rating == 4:
+        return "Positive"
     elif rating == 3:
-        return "neutral"
+        return "Neutral"
+    elif rating == 2:
+        return "Negative"
+    elif rating == 1:
+        return "Very Negative"
     else:
-        return "positive"
+        return "unknown"
 
 
 df["sentiment_label"] = df["rating_review"].apply(create_sentiment_labels)
@@ -273,7 +279,7 @@ print("-" * 40)
 enhanced_df = df.copy()
 
 # Save enhanced dataset
-output_path = PROJECT_PATH / "data/processed/enhanced_reviews_with_labels.csv"
+output_path = PROJECT_PATH / "data/interim/enhanced_reviews_with_labels.csv"
 output_path.parent.mkdir(parents=True, exist_ok=True)
 enhanced_df.to_csv(output_path, index=False)
 
