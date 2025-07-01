@@ -131,6 +131,29 @@ def save_processed_data(splits):
     print("\nTrain/Val/Test splits saved separately.")
 
 
+def balance_classes(df, label_column):
+    """
+    Downsample each class in the DataFrame to the size of the minority class to prevent class imbalance.
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+        label_column (str): The column name for class labels.
+    Returns:
+        pd.DataFrame: A balanced DataFrame with equal number of samples per class.
+    """
+    class_counts = df[label_column].value_counts()
+    min_count = class_counts.min()
+    balanced_df = (
+        df.groupby(label_column, group_keys=False)
+        .apply(lambda x: x.sample(n=min_count, random_state=42))
+        .sample(frac=1, random_state=42)
+        .reset_index(drop=True)
+    )
+    print(
+        f"Balanced dataset to {min_count} samples per class (total {len(balanced_df)})"
+    )
+    return balanced_df
+
+
 def main():
     """Main preprocessing pipeline"""
     print("=" * 60)
@@ -146,10 +169,13 @@ def main():
     # 2. Analyze the final class distribution (without balancing)
     analyze_class_distribution(df, "Final Distribution (Original Imbalance)")
 
-    # 3. Create train/validation/test splits
+    df = balance_classes(df, "sentiment_label")
+    analyze_class_distribution(df, "Distribution After Balancing")
+
+    # 4. Create train/validation/test splits
     splits = create_train_test_split(df)
 
-    # 4. Save processed data
+    # 5. Save processed data
     save_processed_data(splits)
 
     print("\n" + "=" * 60)

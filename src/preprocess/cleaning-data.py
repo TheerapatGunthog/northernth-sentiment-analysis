@@ -9,7 +9,7 @@ from langdetect.lang_detect_exception import LangDetectException
 # Set seed for consistent language detection
 DetectorFactory.seed = 0
 
-PROJECT_PATH = Path("/home/whilebell/Code/Project/Northern-Thailand-Review-Analysis")
+PROJECT_PATH = Path("/home/whilebell/Code/northernth-sentiment-analysis/")
 
 # Load the merged dataset
 df = pd.read_csv(PROJECT_PATH / "data/interim/merged_reviews.csv")
