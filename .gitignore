@@ -5,6 +5,7 @@ data/processed/*/
 data/processed/*.csv
 data/processed/*.png
 data/roberta_processed/
+data/analyst/*.csv
 
 models/*/
 models/*.json
