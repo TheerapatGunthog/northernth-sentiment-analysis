@@ -47,7 +47,7 @@ def prepare_labels(train_df, val_df, test_df):
         df_copy = df.copy()
 
         # Apply the mapping
-        df_copy["labels_id"] = df_copy["sentiment_label"].map(label2id)
+        df_copy["labels_id"] = df_copy["predicted_sentiment_label"].map(label2id)
 
         # Check for invalid labels that resulted in NaN
         invalid_mask = df_copy["labels_id"].isna()
@@ -56,7 +56,9 @@ def prepare_labels(train_df, val_df, test_df):
         if num_invalid > 0:
             print(f"\nWARNING: Found {num_invalid} invalid labels in '{df_name}'.")
             # Show examples of invalid labels from the original data
-            invalid_examples = df_copy[invalid_mask]["sentiment_label"].unique()
+            invalid_examples = df_copy[invalid_mask][
+                "predicted_sentiment_label"
+            ].unique()
             print(f"  Examples of invalid labels found: {list(invalid_examples[:5])}")
             print("  These rows will be REMOVED from the dataset.")
             # Filter out the invalid rows
@@ -104,7 +106,7 @@ def tokenize_data(
     print("Tokenizing train, validation, and test datasets...")
     tokenized_train = train_dataset.map(tokenize_function, batched=True)
     tokenized_val = val_dataset.map(tokenize_function, batched=True)
-    tokenized_test = test_dataset.map(tokenize_function, batched=True)
+    # tokenized_test = test_dataset.map(tokenize_function, batched=True)
 
     # The Trainer API expects the label column to be named 'label'
     tokenized_train = tokenized_train.rename_column("labels_id", "label")
@@ -118,7 +120,7 @@ def tokenize_data(
         "cleaned_text",
         "text_length",
         "word_count",
-        "sentiment_label",
+        "predicted_sentiment_label",
         "rating_review",
     ]
     tokenized_train = tokenized_train.remove_columns(columns_to_remove)

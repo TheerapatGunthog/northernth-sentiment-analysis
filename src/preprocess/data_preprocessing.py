@@ -10,7 +10,9 @@ MIN_TEXT_LENGTH = 20  # Minimum text length
 
 def load_data():
     """Load data produced from EDA step"""
-    df = pd.read_csv(PROJECT_PATH / "data/interim/enhanced_reviews_with_labels.csv")
+    df = pd.read_csv(
+        PROJECT_PATH / "data/interim/enhanced_reviews_with_predictions.csv"
+    )
     print(f"Original dataset size: {len(df):,} reviews")
     return df
 
@@ -59,7 +61,7 @@ def apply_additional_cleaning(df):
 def analyze_class_distribution(df, title="Class Distribution"):
     """Analyze and print class distribution"""
     print(f"\n{title}:")
-    class_counts = df["sentiment_label"].value_counts()
+    class_counts = df["predicted_sentiment_label"].value_counts()
     total = len(df)
     for sentiment, count in class_counts.items():
         percentage = count / total * 100
@@ -72,7 +74,7 @@ def create_train_test_split(df, test_size=0.2, val_size=0.1):
     from sklearn.model_selection import train_test_split
 
     # Check if there are enough samples for each class to stratify
-    class_counts = df["sentiment_label"].value_counts()
+    class_counts = df["predicted_sentiment_label"].value_counts()
     if (class_counts < 2).any():
         print(
             "\nWARNING: Some classes have fewer than 2 samples. Cannot use stratification."
@@ -80,10 +82,10 @@ def create_train_test_split(df, test_size=0.2, val_size=0.1):
         print("Splitting data without stratification.")
         stratify_option = None
     else:
-        stratify_option = df["sentiment_label"]
+        stratify_option = df["predicted_sentiment_label"]
 
-    X = df.drop(columns=["sentiment_label"])
-    y = df["sentiment_label"]
+    X = df.drop(columns=["predicted_sentiment_label"])
+    y = df["predicted_sentiment_label"]
 
     X_train, X_temp, y_train, y_temp = train_test_split(
         X,
@@ -169,7 +171,7 @@ def main():
     # 2. Analyze the final class distribution (without balancing)
     analyze_class_distribution(df, "Final Distribution (Original Imbalance)")
 
-    df = balance_classes(df, "sentiment_label")
+    df = balance_classes(df, "predicted_sentiment_label")
     analyze_class_distribution(df, "Distribution After Balancing")
 
     # 4. Create train/validation/test splits
